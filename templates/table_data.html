@@ -1,0 +1,9 @@
+{% for item in goal_details %}
+<tr>
+  <td>{{ item.KPI_GOAL_ID }}</td>
+  <td>{{ item.KPI_ACTUAL_DATE }}</td>
+  <td>{{ item.KPI_AA1 }}</td>
+  <td>{{ item.KPI_ACTUAL_VALUE }}</td>
+  <td>{{ item.KPI_ACTUAL_COMMENT }}</td>
+</tr>
+{% endfor %}
