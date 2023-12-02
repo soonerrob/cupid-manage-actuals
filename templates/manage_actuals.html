@@ -1,0 +1,77 @@
+{% extends "base.html" %} {% block content %}
+
+<h1>Manage Actuals</h1>
+<div class="mb-3">
+  <select
+    class="form-select"
+    name="goal_id"
+    id="goal-selector"
+    hx-get="/filter_table"
+    hx-trigger="change"
+    hx-target="#results-table"
+  >
+    <option value="">Select a KPI Goal</option>
+    {% for goal_id, goal_detail in goal_details %}
+    <option value="{{ goal_id }}">{{ goal_detail }}</option>
+    {% endfor %}
+  </select>
+</div>
+
+<div>
+  <form method="POST" action="{{ url_for('manage_actuals') }}">
+    {{ form.hidden_tag() }} {{ form.kpi_goal_id }}
+
+    <div class="mb-3">
+      {{ form.kpi_actual_date.label }} <br />
+      {{ form.kpi_actual_date(class="form-control") }}
+    </div>
+
+    <div class="mb-3">
+      {{ form.kpi_aa1.label }} <br />
+      {{ form.kpi_aa1(class="form-control") }}
+    </div>
+
+    <div class="mb-3">
+      {{ form.kpi_actual_value.label }} <br />
+      {{ form.kpi_actual_value(class="form-control") }}
+    </div>
+
+    <div class="mb-3">
+      {{ form.kpi_actual_comment.label }} <br />
+      {{ form.kpi_actual_comment(class="form-control") }}
+    </div>
+
+    {{ form.submit }}
+  </form>
+</div>
+
+<table class="table table-striped table-hover table-bordered mt-4">
+  <thead class="table-dark" id="tableHead">
+    <tr>
+      <th>ID</th>
+      <th>DATE</th>
+      <th>POSSIBLE VALUE</th>
+      <th>ACTUAL VALUE</th>
+
+      <th>COMMENT</th>
+    </tr>
+  </thead>
+  <tbody id="results-table">
+    <!-- HTMX will load table data here -->
+  </tbody>
+</table>
+
+<script>
+  document
+    .getElementById("goal-selector")
+    .addEventListener("change", function () {
+      var selectedGoalId = this.value;
+      console.log("Selected Goal ID:", selectedGoalId); // This will log the selected ID
+      document.getElementById("kpi_goal_id").value = selectedGoalId;
+      console.log(
+        "Hidden field value:",
+        document.getElementById("kpi_goal_id").value
+      ); // This will log the value set in hidden field
+    });
+</script>
+{% endblock %}
