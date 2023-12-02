@@ -88,7 +88,7 @@ def manage_actuals():
             print("Error:", e)
             return "An error occurred while processing the form."
 
-        return redirect(url_for('home'))
+        return redirect(url_for('manage_actuals'))
     
     
     current_month = datetime.now().month
@@ -124,5 +124,5 @@ def manage_actuals():
         
 
 if __name__ == '__main__':
-    app.run(debug=True)    
+    app.run(debug=False)    
     
