@@ -2,8 +2,29 @@
 <tr>
   <td>{{ item.KPI_GOAL_ID }}</td>
   <td>{{ item.KPI_ACTUAL_DATE }}</td>
-  <td>{{ item.KPI_AA1 }}</td>
-  <td>{{ item.KPI_ACTUAL_VALUE }}</td>
+  <td>
+    {% if item.KPI_AA1 is not none %} {{ '{:.0f}'.format(item.KPI_AA1) }} {%
+    else %} N/A
+    <!-- or any text/HTML you prefer for None values -->
+    {% endif %}
+  </td>
+  <td>{{ '{:.0f}'.format(item.KPI_ACTUAL_VALUE) }}</td>
   <td>{{ item.KPI_ACTUAL_COMMENT }}</td>
+  <td>
+    <a
+      href=""
+      class="btn btn-warning btn-xs"
+      data-toggle="modal"
+      data-target="#modaledit"
+      >Edit</a
+    >
+
+    <button
+      class="btn btn-danger"
+      hx-delete="{{ url_for('delete_actual', id=item.KPI_ACTUAL_ID) }}"
+    >
+      Delete
+    </button>
+  </td>
 </tr>
 {% endfor %}

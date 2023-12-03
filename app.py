@@ -2,7 +2,7 @@ import os
 from datetime import datetime
 
 import dotenv
-from flask import Flask, redirect, render_template, request, url_for
+from flask import Flask, redirect, render_template, request, session, url_for
 from flask_bootstrap import Bootstrap5
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
@@ -42,7 +42,7 @@ class KpiActualForm(FlaskForm):
     kpi_aa1 = DecimalField('Possible Value')
     kpi_actual_value = DecimalField('Actual Value', validators=[DataRequired()])
     kpi_actual_comment = TextAreaField('Comment')    
-    submit = SubmitField('Submit')
+    submit = SubmitField('Add Actual')
 
 
 @app.route("/")
@@ -71,7 +71,6 @@ def manage_actuals():
             # Format the date as MM/DD/YYYY
             formatted_date = form.kpi_actual_date.data.strftime('%m/%d/%Y')
 
-            # Create a new KpiActual object and populate it with form data
             new_actual = KpiActual(
                 KPI_GOAL_ID=form.kpi_goal_id.data,
                 KPI_ACTUAL_DATE=formatted_date,
@@ -79,17 +78,14 @@ def manage_actuals():
                 KPI_ACTUAL_COMMENT=form.kpi_actual_comment.data,
                 KPI_AA1=form.kpi_aa1.data
             )
-            # Add new_actual to the database
             db.session.add(new_actual)
             db.session.commit()
 
         except Exception as e:
-            # Catch any exceptions
             print("Error:", e)
             return "An error occurred while processing the form."
 
         return redirect(url_for('manage_actuals'))
-    
     
     current_month = datetime.now().month
     current_year = datetime.now().year
@@ -123,6 +119,18 @@ def manage_actuals():
     return render_template("manage_actuals.html", goal_details=goal_details, form=form)
         
 
+@app.route('/delete', methods=['DELETE'])
+def delete_actual():
+    actual_id = request.args.get('id')
+    actual_to_delete = db.get_or_404(KpiActual, actual_id)
+    db.session.delete(actual_to_delete)
+    db.session.commit()
+    return '', 200
+
+
+
+
+
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", debug=False)    
+    app.run(host="0.0.0.0", debug=True)    
     
