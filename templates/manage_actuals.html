@@ -1,6 +1,19 @@
-{% extends "base.html" %} {% include "header.html" %} {% block title %} Manage
-Actuals {% endblock %} {% block content %}
+{% extends "base.html" %} {% include "header.html" %} {% from
+'bootstrap5/form.html' import render_field %} {% block title %} Manage Actuals
+{% endblock %} {% block content %}
 <div class="container mt-5">
+  {% with messages = get_flashed_messages() %} {% if messages %} {% for message
+  in messages%}
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+    {{message}}
+  </div>
+  {% endfor %} {% endif %} {% endwith %}
   <h1>Manage Actuals</h1>
   <div class="form-floating mb-3">
     <select
@@ -26,26 +39,27 @@ Actuals {% endblock %} {% block content %}
 
       <div class="form-floating mb-3">
         {{ form.kpi_actual_date(class="form-control", id="floatingDate") }}
-        <label for="floatingDate">{{ form.kpi_actual_date.label }}</label>
+        <label for="floatingDate">Date:</label>
       </div>
 
       <div class="form-floating mb-3">
         {{ form.kpi_aa1(class="form-control", id="floatingAA1") }}
-        <label for="floatingAA1">{{ form.kpi_aa1.label }}</label>
+        <label for="floatingAA1">Possible Value:</label>
       </div>
 
       <div class="form-floating mb-3">
         {{ form.kpi_actual_value(class="form-control", id="floatingValue") }}
-        <label for="floatingValue">{{ form.kpi_actual_value.label }}</label>
+        <label for="floatingValue">Actual Value:</label>
       </div>
 
       <div class="form-floating mb-3">
         {{ form.kpi_actual_comment(class="form-control", id="floatingComment")
         }}
-        <label for="floatingComment">{{ form.kpi_actual_comment.label }}</label>
+        <label for="floatingComment">Comment:</label>
       </div>
-
-      {{ form.submit(class="btn btn-primary") }}
+      <div class="d-grid gap-2 col-12 mx-auto">
+        {{ render_field(form.submit, button_size='block') }}
+      </div>
     </form>
   </div>
 
@@ -65,13 +79,35 @@ Actuals {% endblock %} {% block content %}
     </thead>
     <tbody
       id="results-table"
-      hx-confirm="Are you sure?"
       hx-target="closest tr"
       hx-swap="outerHTML swap:1s"
     >
       <!-- HTMX will load table data here -->
     </tbody>
   </table>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="modaledit"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+      </div>
+      <div class="modal-body" id="dynamicModalBody">
+        Loading dynamic content...
+      </div>
+      <div class="modal-footer d-grid col-12 mx-auto"></div>
+    </div>
+  </div>
 </div>
 
 <script>

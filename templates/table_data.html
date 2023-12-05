@@ -3,27 +3,32 @@
   <td>{{ item.KPI_GOAL_ID }}</td>
   <td>{{ item.KPI_ACTUAL_DATE }}</td>
   <td>
-    {% if item.KPI_AA1 is not none %} {{ '{:.0f}'.format(item.KPI_AA1) }} {%
+    {% if item.KPI_AA1 is not none %} {{ '{:.2f}'.format(item.KPI_AA1) }} {%
     else %} N/A
     <!-- or any text/HTML you prefer for None values -->
     {% endif %}
   </td>
-  <td>{{ '{:.0f}'.format(item.KPI_ACTUAL_VALUE) }}</td>
+  <td>{{ '{:.2f}'.format(item.KPI_ACTUAL_VALUE) }}</td>
   <td>{{ item.KPI_ACTUAL_COMMENT }}</td>
-  <td>
-    <a
-      href=""
-      class="btn btn-warning btn-xs"
-      data-toggle="modal"
-      data-target="#modaledit"
-      >Edit</a
+  <td class="actions-column">
+    <button
+      hx-get="/modal_content/{{item.KPI_ACTUAL_ID}}"
+      hx-target="#dynamicModalBody"
+      hx-swap="innerHTML"
+      data-bs-toggle="modal"
+      data-bs-target="#modaledit"
+      class="btn btn-link
+      name="modalcontent"
     >
+    <i class="bi bi-pencil-square"></i>
+    </button>
 
     <button
-      class="btn btn-danger"
+      class="btn btn-link"
       hx-delete="{{ url_for('delete_actual', id=item.KPI_ACTUAL_ID) }}"
+      hx-confirm="Are you sure?"
     >
-      Delete
+      <i class="bi bi-trash3"></i>
     </button>
   </td>
 </tr>

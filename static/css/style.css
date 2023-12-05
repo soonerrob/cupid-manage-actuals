@@ -9,3 +9,13 @@ tr.htmx-swapping td {
   opacity: 0;
   transition: opacity 1s ease-out;
 }
+
+.actions-column {
+  width: 1%; /* or a fixed width like 100px */
+  white-space: nowrap;
+}
+
+.btn-transparent {
+  background-color: transparent;
+  border: none;
+}
