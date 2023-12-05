@@ -105,7 +105,7 @@ def modal_content(actual_id):
             print("Error:", e)
             return "An error occurred while processing the form."
 
-        return redirect(url_for('home'))
+        return redirect(url_for('manage_actuals'))
 
     return render_template("modal_content.html", actual=actual, form=form)
 
