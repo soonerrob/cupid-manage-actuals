@@ -163,3 +163,5 @@ cython_debug/
 .idea/
 .pylintrc
 templates/temp.html
+stuff/
+stuff/infos.txt
