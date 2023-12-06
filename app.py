@@ -84,7 +84,6 @@ def filter_table():
 def modal_content(actual_id):
     actual = db.get_or_404(KpiActual, actual_id)
     form = EditForm(obj=actual)
-    form.KPI_ACTUAL_DATE.data = parser.parse(actual.KPI_ACTUAL_DATE)
     if form.validate_on_submit():
         try:
             actual.KPI_ACTUAL_DATE = form.KPI_ACTUAL_DATE.data.strftime(
@@ -93,12 +92,6 @@ def modal_content(actual_id):
             actual.KPI_ACTUAL_VALUE = form.KPI_ACTUAL_VALUE.data
             actual.KPI_ACTUAL_COMMENT = form.KPI_ACTUAL_COMMENT.data
 
-            print(actual.KPI_ACTUAL_ID)
-            print(actual.KPI_ACTUAL_DATE)
-            print(actual.KPI_AA1)
-            print(actual.KPI_ACTUAL_VALUE)
-            print(actual.KPI_ACTUAL_COMMENT)
-
             db.session.commit()
             flash("Success: Actual Edited Successfully.")
         except Exception as e:
@@ -106,6 +99,8 @@ def modal_content(actual_id):
             return "An error occurred while processing the form."
 
         return redirect(url_for('manage_actuals'))
+
+    form.KPI_ACTUAL_DATE.data = parser.parse(actual.KPI_ACTUAL_DATE)
 
     return render_template("modal_content.html", actual=actual, form=form)
 
