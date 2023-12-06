@@ -3,6 +3,7 @@ from sqlalchemy.orm import relationship
 
 db = SQLAlchemy()
 
+
 class KpiGoal(db.Model):
     __tablename__ = 'BONUS_KPI_GOALS'
     KPI_GOAL_ID = db.Column(db.Integer, primary_key=True)
@@ -12,6 +13,7 @@ class KpiGoal(db.Model):
     KPI_GOAL_QTR = db.Column(db.Integer)
     KPI_GOAL_DATE = db.Column(db.Integer)
     kpi_master = relationship("KpiMaster")
+
 
 class KpiMaster(db.Model):
     __tablename__ = 'BONUS_KPI_MASTER'
@@ -36,13 +38,14 @@ class KpiMaster(db.Model):
     KPI_AB4 = db.Column(db.Numeric(18, 2))
     KPI_ISDEFAULT = db.Column(db.Integer)
 
+
 class KpiActual(db.Model):
     __tablename__ = 'BONUS_KPI_ACTUALS'
     KPI_ACTUAL_ID = db.Column(db.Integer, primary_key=True)
-    KPI_GOAL_ID = db.Column(db.Integer, db.ForeignKey('BONUS_KPI_GOALS.KPI_GOAL_ID'))
+    KPI_GOAL_ID = db.Column(db.Integer, db.ForeignKey(
+        'BONUS_KPI_GOALS.KPI_GOAL_ID'))
     KPI_ACTUAL_VALUE = db.Column(db.Numeric(20, 4))
     KPI_ACTUAL_DATE = db.Column(db.String(10))
     KPI_ACTUAL_COMMENT = db.Column(db.String(200))
     KPI_AA1 = db.Column(db.Numeric(20, 4))
     kpi_goal = relationship("KpiGoal")
-    
