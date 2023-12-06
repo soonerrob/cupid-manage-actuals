@@ -1,10 +1,3 @@
-.jumbotron {
-  padding: 2rem 1rem;
-  margin-bottom: 2rem;
-  background-color: #e9ecef;
-  border-radius: 0.3rem;
-}
-
 tr.htmx-swapping td {
   opacity: 0;
   transition: opacity 1s ease-out;
@@ -15,7 +8,6 @@ tr.htmx-swapping td {
   white-space: nowrap;
 }
 
-.btn-transparent {
-  background-color: transparent;
-  border: none;
+.white-heart {
+  filter: brightness(0);
 }

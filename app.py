@@ -63,7 +63,7 @@ class EditForm(FlaskForm):
 @app.route("/")
 def home():
 
-    return render_template("index.html")
+    return render_template("index.html", active_page="home")
 
 
 @app.route("/filter_table")
@@ -159,7 +159,7 @@ def manage_actuals():
     ).order_by(
         KpiMaster.KPI_NAME, KpiGoal.KPI_GOAL_NAME
     ).all()
-    return render_template("manage_actuals.html", goal_details=goal_details, form=form)
+    return render_template("manage_actuals.html", goal_details=goal_details, form=form, active_page='manage_actuals')
 
 
 @app.route('/delete', methods=['DELETE'])
@@ -172,4 +172,4 @@ def delete_actual():
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0")
+    app.run(host="0.0.0.0", debug=True)
