@@ -170,7 +170,3 @@ def delete_actual():
     db.session.delete(actual_to_delete)
     db.session.commit()
     return '', 200
-
-
-if __name__ == '__main__':
-    app.run(host="0.0.0.0")
