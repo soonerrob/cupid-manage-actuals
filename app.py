@@ -98,7 +98,7 @@ def modal_content(actual_id):
             print("Error:", e)
             return "An error occurred while processing the form."
 
-        return redirect(url_for('manage_actuals'))
+        return render_template('table_row.html', actual=actual, row_id=actual.KPI_ACTUAL_ID)
 
     form.KPI_ACTUAL_DATE.data = parser.parse(actual.KPI_ACTUAL_DATE)
 

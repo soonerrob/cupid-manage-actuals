@@ -1,40 +1,47 @@
 {% from 'bootstrap5/form.html' import render_field %}
 
 <form
-  method="POST"
-  action="{{ url_for('modal_content', actual_id=actual.KPI_ACTUAL_ID) }}"
+  hx-post="{{ url_for('modal_content', actual_id=actual.KPI_ACTUAL_ID) }}"
+  hx-target="#row-{{ actual.KPI_ACTUAL_ID }}"
+  hx-swap="outerHTML"
 >
-  {{ form.hidden_tag() }}
+  <form
+    method="POST"
+    action="{{ url_for('modal_content', actual_id=actual.KPI_ACTUAL_ID) }}"
+  >
+    {{ form.hidden_tag() }}
 
-  <div class="form-floating mb-3">
-    {{ form.KPI_ACTUAL_DATE(class="form-control", id="floatingDate") }}
-    <label for="floatingDate">{{ form.KPI_ACTUAL_DATE.label }}</label>
-  </div>
+    <div class="form-floating mb-3">
+      {{ form.KPI_ACTUAL_DATE(class="form-control", id="floatingDate") }}
+      <label for="floatingDate">{{ form.KPI_ACTUAL_DATE.label }}</label>
+    </div>
 
-  <div class="form-floating mb-3">
-    {{ form.KPI_AA1(class="form-control", id="floatingAA1") }}
-    <label for="floatingAA1">{{ form.KPI_AA1.label }}</label>
-  </div>
+    <div class="form-floating mb-3">
+      {{ form.KPI_AA1(class="form-control", id="floatingAA1") }}
+      <label for="floatingAA1">{{ form.KPI_AA1.label }}</label>
+    </div>
 
-  <div class="form-floating mb-3">
-    {{ form.KPI_ACTUAL_VALUE(class="form-control", id="floatingValue") }}
+    <div class="form-floating mb-3">
+      {{ form.KPI_ACTUAL_VALUE(class="form-control", id="floatingValue") }}
 
-    <label for="floatingValue">{{ form.KPI_ACTUAL_VALUE.label }}</label>
-  </div>
+      <label for="floatingValue">{{ form.KPI_ACTUAL_VALUE.label }}</label>
+    </div>
 
-  <div class="form-floating mb-3">
-    {{ form.KPI_ACTUAL_COMMENT(class="form-control", id="floatingComment") }}
-    <label for="floatingComment">{{ form.KPI_ACTUAL_COMMENT.label }}</label>
-  </div>
-  <div class="d-grid gap-2 col-12 mx-auto">
-    {{ render_field(form.submit, button_size='block') }}
+    <div class="form-floating mb-3">
+      {{ form.KPI_ACTUAL_COMMENT(class="form-control", id="floatingComment") }}
+      <label for="floatingComment">{{ form.KPI_ACTUAL_COMMENT.label }}</label>
+    </div>
+    <div class="d-grid gap-2 col-12 mx-auto">
+      {{ render_field(form.submit, button_size='block', **{'data-bs-dismiss':
+      'modal'}) }}
 
-    <button
-      type="button"
-      class="btn btn-secondary btn-block"
-      data-bs-dismiss="modal"
-    >
-      Cancel
-    </button>
-  </div>
+      <button
+        type="button"
+        class="btn btn-secondary btn-block"
+        data-bs-dismiss="modal"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
 </form>

@@ -1,6 +1,6 @@
 {% for item in goal_details %}
-<tr>
-  <td>{{ item.KPI_GOAL_ID }}</td>
+<tr id="row-{{item.KPI_ACTUAL_ID}}">
+  <td id="data-{{item.KPI_ACTUAL_ID}}">{{ item.KPI_GOAL_ID }}</td>
   <td>{{ item.KPI_ACTUAL_DATE }}</td>
   <td>
     {% if item.KPI_AA1 is not none %} {{ '{:.2f}'.format(item.KPI_AA1) }} {%
