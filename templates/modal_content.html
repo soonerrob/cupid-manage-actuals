@@ -5,10 +5,7 @@
   hx-target="#row-{{ actual.KPI_ACTUAL_ID }}"
   hx-swap="outerHTML"
 >
-  <form
-    method="POST"
-    action="{{ url_for('modal_content', actual_id=actual.KPI_ACTUAL_ID) }}"
-  >
+
     {{ form.hidden_tag() }}
 
     <div class="form-floating mb-3">

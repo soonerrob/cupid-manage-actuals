@@ -34,7 +34,13 @@
   </div>
 
   <div class="form-floating mb-3">
-    <form method="POST" action="{{ url_for('manage_actuals') }}">
+    <form
+      id="add-form"
+      hx-post="{{ url_for('manage_actuals') }}"
+      hx-target="#results-table tr:last-child"
+      hx-swap="afterend"
+      hx-on="htmx:send,htmx:received"
+    >
       {{ form.hidden_tag() }} {{ form.kpi_goal_id }}
 
       <div class="form-floating mb-3">

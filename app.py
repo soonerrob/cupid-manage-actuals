@@ -123,12 +123,13 @@ def manage_actuals():
             db.session.add(new_actual)
             db.session.commit()
             flash("Success: New Actual Added.")
+            added_actual = KpiActual.query.get(new_actual.KPI_ACTUAL_ID)
 
         except Exception as e:
             print("Error:", e)
             return "An error occurred while processing the form."
 
-        return redirect(url_for('manage_actuals'))
+        return render_template('table_row.html', actual=added_actual, row_id=added_actual.KPI_ACTUAL_ID)
 
     current_month = datetime.now().month
     current_year = datetime.now().year
