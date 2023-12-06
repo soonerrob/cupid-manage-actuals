@@ -19,6 +19,7 @@ from models import KpiActual, KpiGoal, KpiMaster, db
 
 dotenv.load_dotenv()
 app = Flask(__name__)
+app.config['DEBUG'] = os.environ.get('FLASK_ENV') == 'development'
 
 CORS(app)
 app.secret_key = os.getenv("APP_SECRET_KEY")
