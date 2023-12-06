@@ -30,7 +30,6 @@ config[config_name].init_app(app)
 CORS(app)
 Bootstrap5(app)
 
-
 # Raw ODBC connection string
 odbc_connection_string = (
     "DRIVER=" + os.getenv("ODBC_CONNECTION_DRIVER") + ";"
