@@ -15,19 +15,16 @@ from wtforms import (DateField, DecimalField, HiddenField, StringField,
                      SubmitField, TextAreaField)
 from wtforms.validators import DataRequired, Length
 
-from config import config
 from models import KpiActual, KpiGoal, KpiMaster, db
 
 dotenv.load_dotenv()
 app = Flask(__name__)
 
-# Set the configuration
-config_name = os.getenv('FLASK_CONFIG') or 'default'
-app.config.from_object(config[config_name])
-config[config_name].init_app(app)
-
 CORS(app)
+app.secret_key = os.getenv("APP_SECRET_KEY")
+
 Bootstrap5(app)
+app.config['BOOTSTRAP_BTN_STYLE'] = 'primary'  # default to 'secondary'
 
 # Raw ODBC connection string
 odbc_connection_string = (
