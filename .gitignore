@@ -167,3 +167,4 @@ stuff/
 stuff/infos.txt
 run.py
 wsgi.py
+kpimanagement/templates/temp.html
