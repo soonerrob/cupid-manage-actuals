@@ -15,28 +15,20 @@ from wtforms import (DateField, DecimalField, HiddenField, StringField,
                      SubmitField, TextAreaField)
 from wtforms.validators import DataRequired, Length
 
+from config import (BOOTSTRAP_BTN_STYLE, DEBUG, ODBC_CONNECTION_STRING,
+                    SECRET_KEY)
 from models import KpiActual, KpiGoal, KpiMaster, db
 
 dotenv.load_dotenv()
 app = Flask(__name__)
-app.config['DEBUG'] = os.environ.get('FLASK_ENV') == 'development'
+app.config['DEBUG'] = DEBUG
+app.secret_key = SECRET_KEY
+app.config['BOOTSTRAP_BTN_STYLE'] = BOOTSTRAP_BTN_STYLE
+app.config['SQLALCHEMY_DATABASE_URI'] = f'mssql+pyodbc:///?odbc_connect={ODBC_CONNECTION_STRING}'
+
 
 CORS(app)
-app.secret_key = os.getenv("APP_SECRET_KEY")
-
 Bootstrap5(app)
-app.config['BOOTSTRAP_BTN_STYLE'] = 'primary'  # default to 'secondary'
-
-# Raw ODBC connection string
-odbc_connection_string = (
-    "DRIVER=" + os.getenv("ODBC_CONNECTION_DRIVER") + ";"
-    "SERVER=" + os.getenv("ODBC_CONNECTION_SERVER") + ";"
-    "DATABASE=" + os.getenv("ODBC_CONNECTION_DATABASE") + ";"
-    "UID=" + os.getenv("ODBC_CONNECTION_UID") + ";"
-    "PWD=" + os.getenv("ODBC_CONNECTION_PWD")
-)
-
-app.config['SQLALCHEMY_DATABASE_URI'] = f'mssql+pyodbc:///?odbc_connect={odbc_connection_string}'
 db.init_app(app)
 
 
