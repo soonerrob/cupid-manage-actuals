@@ -3,7 +3,8 @@
 } */
 
 body {
-  font-family: -apple-system, system-ui, "Roboto", sans-serif;
+  font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI",
+    -apple-system, BlinkMacSystemFont, "Roboto", "Helvetica Neue", sans-serif;
 }
 
 tr.htmx-swapping td {
@@ -18,4 +19,9 @@ tr.htmx-swapping td {
 
 .white-heart {
   filter: brightness(0);
+}
+
+.navbar-brand {
+  font-size: 2rem;
+  font-family: "DM Serif Display", serif;
 }
