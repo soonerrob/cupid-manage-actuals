@@ -138,6 +138,20 @@ def modal_content(actual_id):
     return render_template("modal_content.html", actual=actual, form=form)
 
 
+def get_current_quarter():
+    current_month = datetime.now().month
+    quarter_mapping = {
+        (1, 2, 3): '1',
+        (4, 5, 6): '2',
+        (7, 8, 9): '3',
+        (10, 11, 12): '4'
+    }
+    for months, quarter in quarter_mapping.items():
+        if current_month in months:
+            return quarter
+    return None
+
+
 @app.route("/manage_actuals", methods=['GET', 'POST'])
 def manage_actuals():
     # Check if the user is logged in
@@ -168,9 +182,8 @@ def manage_actuals():
 
         return render_template('table_row.html', actual=added_actual, row_id=added_actual.KPI_ACTUAL_ID)
 
-    current_month = datetime.now().month
     current_year = datetime.now().year
-    current_quarter = (current_month - 1) // 3 + 1
+    current_quarter = get_current_quarter()
 
     goal_details = db.session.query(
         KpiGoal.KPI_GOAL_ID,
